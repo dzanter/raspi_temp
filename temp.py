@@ -11,7 +11,7 @@ sys.path.append(r'/home/pi/pysrc')
 #import pydevd
 import smtplib
 #import dht11
-import sendemail
+#import sendemail
 
 # initialize GPIO
 GPIO.setwarnings(False)
@@ -21,20 +21,22 @@ PIR_PIN=22
 GPIO.setup(PIR_PIN, GPIO.IN);
 motion = False
 
+# optional, if proximity detector is attached
+#   detect motion
 def MOTION(PIR_PIN):
-    print "Motion Detected!";
+    print ("Motion Detected!");
     global motion;
     motion = True;
 
+# on startup attempt one reading before looping
 humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, 22)
 tempf = (temperature * 9) / 5 + 32;
 lastf = tempf;
 if humidity is not None:
-    print("Temperature: %d C" % tempf)
+    print("Temperature: %d F" % tempf)
     print("Humidity: %d %%" % humidity)
 else:
     print("Error Can't read DHT22: %d" % result.error_code)
-    sm.send('hi there')
     sys.exit(1)
     
 day = 0    
@@ -48,7 +50,7 @@ while True :
             newday = True
             day=day2;
             sentEmail = False
-            print 'new day'
+            print ('new day')
             #do stuff here for every new day
             
         
@@ -57,6 +59,7 @@ while True :
            
         sleep(30);
         humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, 22)
+        # convert to F
         tempf = (temperature * 9) / 5 + 32;
 
         #check if increasing or decreasing

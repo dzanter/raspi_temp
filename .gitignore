@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# running output
+tvroomtemp.txt
+
 # C extensions
 *.so
 
